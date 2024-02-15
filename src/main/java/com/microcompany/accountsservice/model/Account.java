@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 @Getter
@@ -13,6 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @Table(name = "accounts")
+@XmlRootElement
 public class Account {
 
     @Id
