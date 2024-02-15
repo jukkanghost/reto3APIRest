@@ -31,5 +31,9 @@ public class Account {
     @Transient
     Customer owner;
 
-
+    public Account(String type, int balance, Long ownerId) {
+        this.type = type;
+        this.balance = balance;
+        this.ownerId = ownerId;
+    }
 }
