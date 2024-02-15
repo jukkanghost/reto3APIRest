@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Min;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/accounts")
@@ -44,13 +45,25 @@ public class AccountsController {
 
     @PutMapping(value = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<Object> update(@PathVariable("id") @Min(1) Long id, @RequestBody Account account) {
-        return ResponseEntity.status(HttpStatus.OK).body(service.updateAccount(id, account));
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.updateAccount(id, account));
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity delete(@PathVariable("id") @Min(1) Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value = "/{id}/añadir")
+    public ResponseEntity<Object> añadir(@PathVariable("id") @Min(1) Long id, @RequestParam Map<String, String> params) {
+        int amount = Integer.parseInt(params.get("amount"));
+        Long ownerId = Long.parseLong(params.get("ownerId"));
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.addBalance(id, amount, ownerId));
+    }
+
+    @PutMapping(value = "/{id}/retirar")
+    public ResponseEntity<Object> retirar(@PathVariable("id") @Min(1) Long id, @RequestParam(name = "amount", required = true) int amount, @RequestParam(name = "ownerId", required = true) Long ownerId) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.withdrawBalance(id, amount, ownerId));
     }
 
 }
