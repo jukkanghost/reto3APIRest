@@ -1,8 +1,6 @@
 package com.microcompany.accountsservice.controller;
 
-import com.microcompany.accountsservice.exception.AccountNotfoundException;
 import com.microcompany.accountsservice.model.Account;
-import com.microcompany.accountsservice.persistence.AccountRepository;
 import com.microcompany.accountsservice.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
