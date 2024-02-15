@@ -2,6 +2,12 @@ spring:
   application.name: demo
   profiles.active: dev
 
+server:
+  error:
+     include-message: always
+     include-binding-errors: never
+     include-stacktrace: on_param
+     include-exception: true
 ---
 spring:
   application.name: demodev
