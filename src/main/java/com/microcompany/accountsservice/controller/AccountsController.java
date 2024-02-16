@@ -15,6 +15,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/accounts")
 @Validated
+//@CrossOrigin(origins = {"*"}, allowedHeaders = "*")
 public class AccountsController {
 
     @Autowired
