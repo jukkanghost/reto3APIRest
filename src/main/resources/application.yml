@@ -34,11 +34,13 @@ spring:
 
 server:
   port: 9900
-#  ssl:
-#    key-store: keystore2.p12
-#    key-store-password: password
-#    keyStoreType: PKCS12
-#    keyAlias: tomcat
+  ssl:
+    key-store: keystore2.p12
+    key-store-password: password
+    keyStoreType: PKCS12
+    keyAlias: tomcat
+
+security.require-ssl: true
 
 #debug: true
 logging:
