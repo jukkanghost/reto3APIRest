@@ -2,6 +2,9 @@ package com.microcompany.accountsservice.controller;
 
 import com.microcompany.accountsservice.model.Account;
 import com.microcompany.accountsservice.services.AccountService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,6 +24,11 @@ public class AccountsController {
     @Autowired
     AccountService service;
 
+    @Operation(summary = "Get all accounts", description = "Returns a list of accounts")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved"),
+            @ApiResponse(responseCode = "404", description = "Empty")
+    })
     @GetMapping(value = "")
     public ResponseEntity<Object> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(service.getAccounts());

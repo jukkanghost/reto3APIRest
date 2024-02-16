@@ -1,6 +1,7 @@
 package com.microcompany.accountsservice.model;
 
 import com.microcompany.accountsservice.constrains.AccountType;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -18,11 +19,13 @@ import java.util.Date;
 @Entity
 @Table(name = "accounts")
 @XmlRootElement
+@Schema(name = "Account Model", description = "Account of client")
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Min(1)
+    @Schema(name = "Account id", description = "Identifier of account", example = "4")
     private Long id;
 
     @NotBlank
