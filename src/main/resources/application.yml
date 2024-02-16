@@ -4,10 +4,10 @@ spring:
 
 server:
   error:
-     include-message: always
-     include-binding-errors: never
-     include-stacktrace: on_param
-     include-exception: true
+    include-message: always
+    include-binding-errors: never
+    include-stacktrace: on_param
+    include-exception: true
 ---
 spring:
   application.name: demodev
@@ -31,6 +31,11 @@ spring:
 
 server:
   port: 9900
+  ssl:
+    key-store: keystore2.p12
+    key-store-password: password
+    keyStoreType: PKCS12
+    keyAlias: tomcat
 
 #debug: true
 logging:
