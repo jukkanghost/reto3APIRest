@@ -25,8 +25,6 @@ public class AccountsController {
     @Autowired
     AccountService service;
 
-    @Autowired
-    AccountRepository repo;
 
     @Operation(summary = "Get all accounts", description = "Returns a list of accounts")
     @ApiResponses(value = {
@@ -45,8 +43,10 @@ public class AccountsController {
 
     @DeleteMapping(value = "/deleteAll/{ownerId}")
     public ResponseEntity deleteAll(@PathVariable("ownerId") @Min(1) Long ownerId) {
-        service.deleteAccountsUsingOwnerId(ownerId);
-        return ResponseEntity.noContent().build();
+        if (ownerId != null && ownerId > 0L) {
+            service.deleteAccountsUsingOwnerId(ownerId);
+            return ResponseEntity.noContent().build();
+        } else return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
     }
 
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -66,15 +66,17 @@ public class AccountsController {
     }
 
     @PutMapping(value = "/{id}/añadir")
-    public ResponseEntity<Object> añadir(@PathVariable("id") @Min(1) Long id, @RequestParam Map<String, String> params) {
-        int amount = Integer.parseInt(params.get("amount"));
-        Long ownerId = Long.parseLong(params.get("ownerId"));
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.addBalance(id, amount, ownerId));
+    public ResponseEntity<Object> añadir(@PathVariable("id") @Min(1) Long id, @RequestParam(name = "amount", required = true) int amount, @RequestParam(name = "ownerId", required = true) Long ownerId) {
+        if (id != null && id > 0L && amount >= 0 && ownerId != null && ownerId > 0L) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.addBalance(id, amount, ownerId));
+        } else return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
     }
 
     @PutMapping(value = "/{id}/retirar")
     public ResponseEntity<Object> retirar(@PathVariable("id") @Min(1) Long id, @RequestParam(name = "amount", required = true) int amount, @RequestParam(name = "ownerId", required = true) Long ownerId) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.withdrawBalance(id, amount, ownerId));
+        if (id != null && id > 0L && amount >= 0 && ownerId != null && ownerId > 0L) {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.withdrawBalance(id, amount, ownerId));
+        } else return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
     }
 
 }
