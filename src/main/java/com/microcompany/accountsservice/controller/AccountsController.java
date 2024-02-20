@@ -1,6 +1,7 @@
 package com.microcompany.accountsservice.controller;
 
 import com.microcompany.accountsservice.model.Account;
+import com.microcompany.accountsservice.persistence.AccountRepository;
 import com.microcompany.accountsservice.services.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -23,6 +24,9 @@ public class AccountsController {
 
     @Autowired
     AccountService service;
+
+    @Autowired
+    AccountRepository repo;
 
     @Operation(summary = "Get all accounts", description = "Returns a list of accounts")
     @ApiResponses(value = {
